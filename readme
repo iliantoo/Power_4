@@ -1,0 +1,31 @@
+# 🎮 Puissance 4 – Jeu en Go (Golang)
+
+Un petit projet web en **Go (Golang)** qui permet de jouer au **Puissance 4** dans le navigateur.  
+Interface moderne en HTML/CSS/JS, serveur backend minimaliste en Go.  
+
+---
+
+## 🚀 Fonctionnalités
+
+- Jeu **Puissance 4** jouable dans le navigateur  
+- Affichage dynamique du plateau (6x7 ou autres tailles)
+- Indication du **tour du joueur**
+- Gestion automatique de la victoire et égalité
+- Design moderne en **dégradés, arrondis et ombres**
+- Code simple et clair (parfait pour apprendre Go)
+
+---
+
+## 🧩 Structure du projet
+├── server.go # Fichier de configuration Go
+├── pages/
+│ ├── index.html # Page d'accueil (choix des joueurs/difficulté)
+│ └── info.html # Page du jeu (grille + logique)
+└── static/
+│ ├── style.css # Feuille de style principale
+└── templates/ 
+│  ├── footer.html
+│  └── header.hmtl
+
+---
+

@@ -15,7 +15,7 @@
     <p>Difficulté : {{.Difficulte}}</p>
 
     {{if .Gagnant}}
-      <h2>🎉 Le gagnant est {{if eq .Gagnant 1}}{{.Joueur1}}{{else}}{{.Joueur2}}{{end}} !</h2>
+      <h2> Le gagnant est {{if eq .Gagnant 1}}{{.Joueur1}}{{else}}{{.Joueur2}}{{end}} !</h2>
       <form action="/info" method="post">
         <input type="hidden" name="Joueur1" value="{{.Joueur1}}">
         <input type="hidden" name="Joueur2" value="{{.Joueur2}}">

@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* =========================
+   VARIABLES GLOBALES
+========================= */
+:root {
+  --cell-size: 60px;
+  --gap: 8px;
+}
+
+/* =========================
+   RESET & BASE
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #004aad, #0078d7);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* =========================
+   HEADER & FOOTER
+========================= */
+header, footer {
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+footer {
+  margin-top: auto;
+  position: relative;
+}
+
+/* =========================
+   TITRES
+========================= */
+h1 {
+  font-size: 2.5rem;
+  margin: 2rem 0;
+  text-transform: uppercase;
+  background: linear-gradient(to right, #ffcc00, #ff4b4b);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* =========================
+   FORMULAIRE INDEX
+========================= */
+form {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem 3rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  min-width: 300px;
+  max-width: 400px;
+  backdrop-filter: blur(10px);
+  margin-bottom: 3rem;
+}
+
+label {
+  font-weight: 600;
+  color: #ffcc00;
+}
+
+input[type="text"],
+select {
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 0.7rem;
+  outline: none;
+  font-size: 1rem;
+  background: #ffffff;
+  color: #333;
+  transition: 0.2s ease-in-out;
+}
+
+input[type="text"]:focus,
+select:focus {
+  transform: scale(1.03);
+  box-shadow: 0 0 0 3px #ffcc00;
+}
+
+/* =========================
+   BOUTON PRINCIPAL
+========================= */
+.btn-96 {
+  position: relative;
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  border-radius: 1.5rem;
+  background: linear-gradient(45deg, #ffcc00, #ff4b4b);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-96 span {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-96::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, #ffcc00, #ff4b4b, #0078d7);
+  background-size: 200%;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease, background-position 0.5s ease;
+}
+
+.btn-96:hover::before {
+  opacity: 1;
+  background-position: right;
+}
+
+.btn-96:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 204, 0, 0.4);
+}
+
+/* =========================
+   PAGE INFO (PUISSANCE 4)
+========================= */
+
+/* Conteneur principal centré */
+.board {
+  --cols: 7; /* valeur par défaut */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin: 2rem auto;
+  width: calc((var(--cols) * var(--cell-size)) + ((var(--cols) - 1) * var(--gap)));
+}
+
+/* Ligne de flèches (alignée avec la grille) */
+.arrow-row {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--cell-size));
+  gap: var(--gap);
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.arrow-btn {
+  background: linear-gradient(90deg, #ff7b00, #ffcc00);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 20px;
+  height: 40px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.arrow-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Grille du jeu */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--cell-size));
+  gap: var(--gap);
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Cellules */
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
+  transition: 0.2s;
+}
+
+.cell:hover {
+  transform: scale(1.05);
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Couleurs des joueurs */
+.cell.red { background: #ff4b4b; }
+.cell.yellow { background: #ffcc00; }
+
+/* Responsive */
+@media (max-width: 480px) {
+  :root {
+    --cell-size: 50px;
+    --gap: 6px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  form {
+    padding: 1.5rem 2rem;
+  }
+}

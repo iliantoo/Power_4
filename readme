@@ -23,6 +23,7 @@ Interface moderne en HTML/CSS, serveur backend minimaliste en Go.
 │ └── info.html # Page du jeu (grille + logique)
 └── static/
 │ ├── style.css # Feuille de style principale
+│ └── script.js # Script permettant à la grille de rester centrée lorsqu’un tour est joué.
 └── templates/ 
 │  ├── footer.html
 │  └── header.hmtl

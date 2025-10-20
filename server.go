@@ -15,9 +15,11 @@ type Informations struct {
 	JoueurActuel int
 	Gagnant      int
 	NbCols       int
+	Draw         bool 
 }
 
 var currentGame *Informations
+
 
 func createGrid(difficulty string) [][]int {
 	var rows, cols int
@@ -39,6 +41,7 @@ func createGrid(difficulty string) [][]int {
 	return grid
 }
 
+
 func dropToken(grid [][]int, col, joueur int) bool {
 	for i := len(grid) - 1; i >= 0; i-- {
 		if grid[i][col] == 0 {
@@ -48,6 +51,7 @@ func dropToken(grid [][]int, col, joueur int) bool {
 	}
 	return false
 }
+
 
 func checkWinner(grid [][]int, joueur int) bool {
 	rows := len(grid)
@@ -96,6 +100,18 @@ func checkWinner(grid [][]int, joueur int) bool {
 	return false
 }
 
+func checkDraw(grid [][]int) bool {
+	for _, row := range grid {
+		for _, cell := range row {
+			if cell == 0 {
+				return false 
+			}
+		}
+	}
+	return true
+}
+
+
 func Home(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("./pages/index.html", "./templates/header.html", "./templates/footer.html")
 	if err != nil {
@@ -104,6 +120,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	}
 	tmpl.Execute(w, nil)
 }
+
 
 func Infos(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
@@ -123,14 +140,18 @@ func Infos(w http.ResponseWriter, r *http.Request) {
 				JoueurActuel: 1,
 				NbCols:       len(grid[0]),
 			}
-		} else {
+		} else if currentGame.Gagnant == 0 && !currentGame.Draw { // bloque le jeu si fini
 			colStr := r.FormValue("col")
 			col, _ := strconv.Atoi(colStr)
 			dropToken(currentGame.Grille, col, currentGame.JoueurActuel)
 
+			// Vérifie victoire
 			if checkWinner(currentGame.Grille, currentGame.JoueurActuel) {
 				currentGame.Gagnant = currentGame.JoueurActuel
+			} else if checkDraw(currentGame.Grille) { //Vérifie match nul
+				currentGame.Draw = true
 			} else {
+				// Change de joueur
 				if currentGame.JoueurActuel == 1 {
 					currentGame.JoueurActuel = 2
 				} else {
@@ -147,6 +168,7 @@ func Infos(w http.ResponseWriter, r *http.Request) {
 	}
 	tmpl.Execute(w, currentGame)
 }
+
 
 func main() {
 	http.HandleFunc("/", Home)

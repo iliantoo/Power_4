@@ -23,27 +23,38 @@
         <input type="hidden" name="difficulty" value="{{.Difficulte}}">
         <button type="submit" class="btn-96"><span>Rejouer</span></button>
       </form>
+
+    {{else if .Draw}}
+      <h2>  Match nul ! Aucun gagnant. </h2>
+      <form action="/info" method="post">
+        <input type="hidden" name="Joueur1" value="{{.Joueur1}}">
+        <input type="hidden" name="Joueur2" value="{{.Joueur2}}">
+        <input type="hidden" name="difficulty" value="{{.Difficulte}}">
+        <button type="submit" class="btn-96"><span>Rejouer</span></button>
+      </form>
+
     {{else}}
       <p>Tour de :
         {{if eq .JoueurActuel 1}}{{.Joueur1}}{{else}}{{.Joueur2}}{{end}}
       </p>
 
-     <div class="board" style="--cols: {{len (index .Grille 0)}};">
-  <form action="/info" method="post">
-    <div class="arrow-row">
-      {{range $i, $_ := (index .Grille 0)}}
-        <button class="arrow-btn" type="submit" name="col" value="{{$i}}">↓</button>
-      {{end}}
-    </div>
-  </form>
+      <div class="board" style="--cols: {{len (index .Grille 0)}};">
+        <form action="/info" method="post">
+          <div class="arrow-row">
+            {{range $i, $_ := (index .Grille 0)}}
+              <button class="arrow-btn" type="submit" name="col" value="{{$i}}">↓</button>
+            {{end}}
+          </div>
+        </form>
 
-  <div class="grid">
-    {{range $r, $row := .Grille}}
-      {{range $c, $cell := $row}}
-        <div class="cell {{if eq $cell 1}}red{{else if eq $cell 2}}yellow{{end}}"></div>
-    {{end}}
-  {{end}}
-</div>
+        <div class="grid">
+          {{range $r, $row := .Grille}}
+            {{range $c, $cell := $row}}
+              <div class="cell {{if eq $cell 1}}red{{else if eq $cell 2}}yellow{{end}}"></div>
+            {{end}}
+          {{end}}
+        </div>
+      </div>
     {{end}}
   </main>
 

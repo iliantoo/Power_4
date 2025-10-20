@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/style.css">
+    <title>Document</title>
+</head>
+{{template "Header"}}
+<body>
+
+
+    <h1>Power4</h1>
+       <form action="/info" method="POST">
+    <label>Joueur 1</label><br>
+    <input type="text" name="Joueur1" required><br>
+    <label>Joueur 2</label><br>
+    <input type="text" name="Joueur2" required><br>
+    <select name="difficulty" required> 
+        <option value="6x7">Easy 6x7 grid</option>
+        <option value="6x9">Normal 6x9 grid</option>
+        <option value="7x8">Hard 7x8 grid</option>
+    </select>
+    <button type="submit" class="btn-96"><span>Jouer</span></button>
+</form>
+
+</select>
+
+
+
+
+ 
+    </form>
+</body>
+{{template "Footer"}}
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../static/style.css">
+  <title>Puissance 4</title>
+</head>
+<body>
+  {{template "Header"}}
+
+  <main>
+    <h1>Puissance 4</h1>
+    <h2>{{.Joueur1}} VS {{.Joueur2}}</h2>
+    <p>Difficulté : {{.Difficulte}}</p>
+
+    {{if .Gagnant}}
+      <h2>🎉 Le gagnant est {{if eq .Gagnant 1}}{{.Joueur1}}{{else}}{{.Joueur2}}{{end}} !</h2>
+      <form action="/info" method="post">
+        <input type="hidden" name="Joueur1" value="{{.Joueur1}}">
+        <input type="hidden" name="Joueur2" value="{{.Joueur2}}">
+        <input type="hidden" name="difficulty" value="{{.Difficulte}}">
+        <button type="submit" class="btn-96"><span>Rejouer</span></button>
+      </form>
+    {{else}}
+      <p>Tour de :
+        {{if eq .JoueurActuel 1}}{{.Joueur1}}{{else}}{{.Joueur2}}{{end}}
+      </p>
+
+     <div class="board" style="--cols: {{len (index .Grille 0)}};">
+  <form action="/info" method="post">
+    <div class="arrow-row">
+      {{range $i, $_ := (index .Grille 0)}}
+        <button class="arrow-btn" type="submit" name="col" value="{{$i}}">↓</button>
+      {{end}}
+    </div>
+  </form>
+
+  <div class="grid">
+    {{range $r, $row := .Grille}}
+      {{range $c, $cell := $row}}
+        <div class="cell {{if eq $cell 1}}red{{else if eq $cell 2}}yellow{{end}}"></div>
+    {{end}}
+  {{end}}
+</div>
+    {{end}}
+  </main>
+
+  {{template "Footer"}}
+</body>
+</html>
